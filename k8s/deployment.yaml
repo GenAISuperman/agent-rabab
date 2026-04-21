@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{AGENT_ID}}"
-  namespace: "agents-{{TEAM_NAME}}"
+  name: "rabab"
+  namespace: "agents-dev"
   labels:
-    app: "{{AGENT_ID}}"
-    team: "{{TEAM_NAME}}"
+    app: "rabab"
+    team: "dev"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "{{AGENT_ID}}"
+      app: "rabab"
   template:
     metadata:
       labels:
-        app: "{{AGENT_ID}}"
-        team: "{{TEAM_NAME}}"
+        app: "rabab"
+        team: "dev"
         azure.workload.identity/use: "true"
     spec:
-      serviceAccountName: "sa-{{AGENT_ID}}"
+      serviceAccountName: "sa-rabab"
       containers:
-        - name: "{{AGENT_ID}}"
-          image: "{{ACR_LOGIN_SERVER}}/agents/{{AGENT_ID}}:latest"
+        - name: "rabab"
+          image: "acrshoppoc.azurecr.io/agents/rabab:latest"
           ports:
             - containerPort: 8000
           envFrom:
             - configMapRef:
-                name: "config-{{AGENT_ID}}"
+                name: "config-rabab"
           resources:
             requests:
               cpu: 250m
